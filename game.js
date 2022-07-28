@@ -12,8 +12,7 @@ best out of 5 wins
 - create a function that counters the total number of wins and rounds to see who wins overall
 */
 function userChoice(){
-    return (prompt("Rock, Paper or Scissors?")).toLowerCase()
-    
+    return (prompt("Rock, Paper or Scissors?")).toLowerCase();
 };
 function computerChoice(){
     let option = ["rock", "paper" , "scissors"]
@@ -48,6 +47,7 @@ function playRound(user, computer){
         return "Lose";
     };
 };
+
 let userWins = 0, computerWins = 0;
 function game(counter){
     let score  = "User: " + userWins + " Computer: " + computerWins;
@@ -67,5 +67,6 @@ function game(counter){
     return game(counter-1)
     
 };
+
 game(5) ;
 
