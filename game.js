@@ -11,9 +11,15 @@ Compare and return results
 best out of 5 wins
 - create a function that counters the total number of wins and rounds to see who wins overall
 */
-function userChoice(){
-    return (prompt("Rock, Paper or Scissors?")).toLowerCase();
-};
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+const userScore = document.querySelector("#userScore");
+const computerScore = document.querySelector("#computerScore");
+const resultsText = document.querySelector("#resultsText");
+let choice = "";
+let userWins = 0, computerWins = 0;
+
 function computerChoice(){
     let option = ["rock", "paper" , "scissors"]
     let x = Math.floor(Math.random()*3)
@@ -24,49 +30,69 @@ function computerChoice(){
     return option[x];
 };
 
+function game(){
+    userScore.textContent = userWins;
+    computerScore.textContent= computerWins;
+    let rounds = playRound(choice,computerChoice());
+    if(rounds == "Win"){
+        userWins+=1;
+        userScore.textContent = userWins;
+    } else if (rounds =="Lose"){
+        computerWins+=1;
+        computerScore.textContent= computerWins;
+    };
+    if(userWins == 5){
+        userWins = 0;
+        computerWins = 0;
+        resultsText.textContent = "Congratulations you won!"
+    } else if(computerWins == 5){
+        userWins = 0;
+        computerWins = 0;
+        resultsText.textContent = "Too bad. Try again next time"
+    };
+};
+
+function computerChoice(){
+    let option = ["rock", "paper" , "scissors"]
+    let x = Math.floor(Math.random()*3)
+    if (x == 3){
+        x--
+    };
+    return option[x];
+};
+
 function playRound(user, computer){
     if (user == computer){
-        console.log("The computer went " + computer)
-        console.log("It's a draw")
-        return "Draw";
+        resultsText.textContent = "The computer went " + computer;
+        return;
     } else if(user == "rock" && computer == "scissors"){
-        console.log("The computer went " + computer)
-        console.log("You win")
+        resultsText.textContent = "The computer went " + computer;
         return "Win";
     } else if(user == "paper" && computer == "rock"){
-        console.log("The computer went " + computer)
-        console.log("You win") 
+        resultsText.textContent = "The computer went " + computer;
         return "Win";
     } else if(user == "scissors" && computer == "paper"){
-        console.log("The computer went " + computer)
-        console.log("You win")
+        resultsText.textContent = "The computer went " + computer;
         return "Win";
     } else{
-        console.log("The computer went " + computer)
-        console.log("You lose");
+        resultsText.textContent = "The computer went " + computer;
         return "Lose";
     };
 };
 
-let userWins = 0, computerWins = 0;
-function game(counter){
-    let score  = "User: " + userWins + " Computer: " + computerWins;
+rock.addEventListener("click", function(){
+    choice = "rock"
+    game();
 
-    if (counter == 0){
-        console.log(score);
-        return console.log(score);
-    }
-    let rounds = playRound(userChoice(),computerChoice());
-    if (rounds == "Draw"){
-        counter += 1;
-    } else if(rounds == "Win"){
-        userWins +=1;
-    } else if (rounds =="Lose"){
-        computerWins +=1;
-    }
-    return game(counter-1)
-    
-};
+});
+paper.addEventListener("click", function(){
+    choice = "paper"
+    game();
 
-game(5) ;
+});
+scissors.addEventListener("click", function(){
+    choice = "scissors"
+    game();
+
+});
 
